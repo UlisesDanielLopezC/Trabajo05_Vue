@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body class="cuerpo">
+    <script type="importmap">
+        {
+            "imports": {
+                "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+            }
+        }
+    </script>
+      
+    <div id="app">
+        <h1 :class="pTitulos">Sobre Logotipos</h1>
+        <div :class="pTexto">
+            <p :class="pResaltar">Si dudas sobre como hacer un logotipo, considera los siguientes 4 factores.</p>
+            <select v-model="selected" :class="pBox">
+                <option disabled value="">Elegir una opcion</option>
+                <option>Silueta</option>
+                <option>Detalles</option>
+                <option>Colores</option>
+                <option>Texto</option>
+            </select>
+            
+            <div v-if="selected === 'Silueta'">
+                <h2 :class="pTitulos">Silueta</h2>
+                <p :class="pResaltar">Es dicho que una buena marca puede ser reconocida solo con su silueta.</p>
+                <p :class="pCompact">
+                    Así que todo comienza con el hecho de tener una estructura definida por fuera, claramente
+                    esta base suele relacionarse con la temática que trabaja lo que se quiere representar con
+                    el logo, así que es necesario tomarse un tiempo para pensar y elegir entre diversas ideas.
+                </p>
+
+                <h2 :class="pResaltar">Es necesario que el logo se relacione con la temática de lo que se representa...</h2>
+                <input type="radio" id="A" value="A" v-model="picked"></input>
+                <label for="A">Verdadero</label>
+                <br></br>
+                <input type="radio" id="B" value="B" v-model="picked"></input>
+                <label for="B">Falso</label>
+                <br></br>
+                <input type="radio" id="C" value="C" v-model="picked"></input>
+                <label for="C">No necesariamente</label>
+                <br></br>
+                <div v-if="picked === 'C'">
+                    <p :class="pResaltar">Efectivamente!</p>
+                </div>
+                <div v-else>
+                    <p :class="pResaltar">Incorrecto!</p>
+                </div>
+            </div>
+
+            <div v-else-if="selected === 'Detalles'">
+                <h2 :class="pTitulos">Detalles</h2>
+                <p :class="pResaltar">Pudiendo existir o no, un par de detalles nunca van a estar de más.</p>
+                <p :class="pCompact">
+                    Ya habiendo trabajado una silueta, es requerido considerar que tanto de puede decorar
+                    a esta silueta, ya sea a través de propiamente los colores para darle textura o sea a
+                    través de otras figuras que le puedan aportar buenos detalles al logotipo general.
+                </p>
+            </div>
+            <div v-else-if="selected === 'Colores'">
+                <h2 :class="pTitulos">Colores</h2>
+                <p :class="pResaltar">Las paletas de colores son otro de los elementos mas esenciales.</p>
+                <p :class="pCompact">
+                    Aunque es más rápido elegir colores al azar para nuestro logotipo y luego tomarlos
+                    de ahí para otros propositos, se considera importante y más útil registrar todo
+                    los códigos hexadecimales de los colores contenidos en la paleta.
+                </p>
+                <input type="color">
+                <br><br>
+                <input v-model="newTodo" @keyup.enter="addTodo">
+                <button @click="addTodo">Guardar color</button>
+                <p :class="pResaltar" v-for="todo in todos" :key="todo.id">
+                {{ todo.text }}
+                <button @click="removeTodo(todo)">X</button>
+                </p>
+            </div>
+            <div v-else-if="selected === 'Texto'">
+                <h2 :class="pTitulos">Texto</h2>
+                <p :class="pResaltar">Y lo único que falta es nuestro título o una abreviatura.</p>
+                <p :class="pCompact">
+                    Si bien no es del todo necesario que un logo contenga un nombre, se puede incluir
+                    ya sea el propio nombre de la marca o una abreviatura de esta en caso de que el
+                    nombre sea muy largo. De otra manera, simplemente se conserva un logo simple
+                </p>
+            </div>
+
+        </div>
+    </div>
+      
+    <script type="module">
+        import { createApp } from 'vue'
+    
+        let id = 0
+
+        createApp({
+            data() {
+                return {
+                    pTitulos: 'titulos',
+                    pTexto: 'texto',
+                    pBox: 'box',
+                    pCompact: 'compact',
+                    pResaltar: 'resaltar',
+                    selected: 'Silueta',
+                    picked: '',
+                    newTodo: '',
+                    todos: [
+                        { id: id++, text: 'Guarda tus colores aqui!' }
+                    ]
+                }
+            },
+            methods: {
+                addTodo() {
+                    this.todos.push({ id: id++, text: this.newTodo })
+                    this.newTodo = ''
+                },
+                    removeTodo(todo) {
+                    this.todos = this.todos.filter((t) => t !== todo)
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

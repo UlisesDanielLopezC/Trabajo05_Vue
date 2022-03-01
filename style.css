@@ -1,0 +1,44 @@
+.cuerpo{
+    background-image: url(test-bg.png);
+}
+
+.titulos{
+    color: rgb(144, 255, 212);
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    text-align: center;
+}
+
+.texto{
+    color:rgb(176, 255, 144);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    text-align: center;
+}
+
+.resaltar{
+    font-weight: bold;
+    color:rgb(94, 215, 245);
+}
+
+.box option, select{
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    color: rgb(1, 133, 89);
+    text-align: center;
+    padding: 3px;
+}
+
+.compact{
+    text-align: center;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+@media screen and (max-width: 800px){
+    .compact{
+        margin-left: 60px;
+        margin-right: 60px;
+    }
+}
